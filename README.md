@@ -7,5 +7,5 @@
        width=200px />
 </a>
 
-
+<br>
 Some basic OCaml utility functions I will keep updating while learning functional programming
