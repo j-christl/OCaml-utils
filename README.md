@@ -6,5 +6,7 @@
        alt="OCaml"
        width=200px />
 </a>
-<br><br>
+
+
+
 Some basic OCaml utility functions I will keep updating while learning functional programming
