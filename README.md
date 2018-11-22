@@ -7,3 +7,11 @@
 </a>
 <br/><br/>
 Some basic OCaml utility functions I will keep updating while learning functional programming
+
+## Usage
+```ocaml
+$ ocaml
+        OCaml version 4.07.0
+
+# #use "ocaml-utils.ml";;
+```
