@@ -4,6 +4,6 @@
   <img src="http://ocaml.org/logo/Colour/PNG/colour-logo.png"
        alt="OCaml"
        width=200px />
-</a>-utils
+</a>
 <br/><br/>
 Some basic OCaml utility functions I will keep updating while learning functional programming
