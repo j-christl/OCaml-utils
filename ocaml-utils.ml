@@ -48,7 +48,7 @@ let list_size l =
  * Examples:  # list_index_of [1;2;3;4;5] 2 = 1
  *            # list_index_of [1;2;3;4;5] 4 = 3
  *            # list_index_of [1;2;3;4;5] 6 = -1
-*)
+ *)
 let list_index_of l element =
   let rec list_index_of_rec li element count =
     match li with []    -> -1
@@ -62,7 +62,7 @@ let list_index_of l element =
  * Returns if a given polymorphic list contains a specific element
  * Examples:  # list_contains ['a';'c';'e'] 'a' = true
  *            # list_contains ['a';'c';'e'] 'b' = false
-*)
+ *)
 let list_contains l element = (list_index_of l element) >= 0
 
 
@@ -73,7 +73,7 @@ let list_contains l element = (list_index_of l element) >= 0
  * otherwise the function fails with "Index out of bounds"
  * Examples:  # list_get_element [2;4;6;8;10] 0 = 2
  *            # list_get_element [2;4;6;8;10] 4 = 10
-*)
+ *)
 let rec list_get_element l index = if index < 0 then failwith "Index out of bounds" else
   match l with []     -> failwith "Index out of bounds"
             |  x::xs  -> if index = 0 then x else list_get_element xs (index-1)
@@ -97,10 +97,19 @@ let rec list_replace_element l element1 element2 =
  *)
 
 
- (* fib : int -> int
-  *
-  * Returns fib(x) with fib being the fibonacci sequence.
-  * fib(0) = fib(1) = 1 and fib(x) = fib(x-1) + fib(x-2) with x >= 2
-  *
-  *)
-let rec fib x = if x <= 1 then 1 else (fib (x-1)) + (fib (x-2))
+(* fib : int -> int
+ *
+ * Returns fib(x) with fib being the fibonacci sequence.
+ * fib(0) = fib(1) = 1 and fib(x) = fib(x-1) + fib(x-2) with x >= 2
+ *)
+let rec fib x =
+  if x <= 1 then 1 else (fib (x-1)) + (fib (x-2))
+
+
+(* fac : int -> int
+ *
+ * Returns x! (factorial of x)
+ * 0! = 1! and x! = x * (x-1)!
+ *)
+let rec fac x =
+  if x <= 1 then 1 else x * fac (x-1)
