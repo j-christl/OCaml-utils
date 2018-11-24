@@ -49,21 +49,46 @@ let list_size l =
  *            # list_index_of [1;2;3;4;5] 4 = 3
  *            # list_index_of [1;2;3;4;5] 6 = -1
 *)
-let list_index_of l obj =
-  let rec list_index_of_rec li obj count =
+let list_index_of l element =
+  let rec list_index_of_rec li element count =
     match li with []    -> -1
-                | x::xs -> if x = obj then count
-                           else list_index_of_rec xs obj (count+1) 
-  in list_index_of_rec l obj 0
+                | x::xs -> if x = element then count
+                           else list_index_of_rec xs element (count+1) 
+  in list_index_of_rec l element 0
 
 
 (* list_contains : list -> 'a -> bool
  *
- * Returns if a given polymorphic list contains a specific object
+ * Returns if a given polymorphic list contains a specific element
  * Examples:  # list_contains ['a';'c';'e'] 'a' = true
  *            # list_contains ['a';'c';'e'] 'b' = false
 *)
-let list_contains l obj = (list_index_of l obj) >= 0
+let list_contains l element = (list_index_of l element) >= 0
+
+
+(* list_get_element : 'a list -> int -> 'a
+ *
+ * Returns the element at a specified index in a polymorphic list.
+ * Note that index must be within [0;list_size l],
+ * otherwise the function fails with "Index out of bounds"
+ * Examples:  # list_get_element [2;4;6;8;10] 0 = 2
+ *            # list_get_element [2;4;6;8;10] 4 = 10
+*)
+let rec list_get_element l index = if index < 0 then failwith "Index out of bounds" else
+  match l with []     -> failwith "Index out of bounds"
+            |  x::xs  -> if index = 0 then x else list_get_element xs (index-1)
+
+
+(* list_replace_element : 'a list -> 'a -> 'a -> 'a list
+ *
+ * Replaces all occurrences of element1 by element2 in a polymorphic list.
+ * Examples:  # list_replace_element [1;2;3] 2 4 = [1; 4; 3]
+ *            # list_replace_element [1;1;1] 1 2 = [2; 2; 2]
+ *)
+let rec list_replace_element l element1 element2 =
+  match l with []     -> []
+            |  x::xs  -> (if x = element1 then element2 else x)::list_replace_element xs element1 element2
+
 
 
 (* -----
