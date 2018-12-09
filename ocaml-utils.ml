@@ -90,10 +90,10 @@ let rec list_get_element l index = if index < 0 then failwith "Index out of boun
  * Examples:  # list_map (fun x -> x+1) [1;2;3;4] = [2; 3; 4; 5]
  *            # list_map string_of_int [11;12;13] = ["11"; "12"; "13"]
  *)
-let rec list_map map f l =
+let rec list_map f l =
   match l with
       []     -> []
-    | x::xs  -> (f x)::map f xs
+    | x::xs  -> (f x)::list_map f xs
 
 
 
