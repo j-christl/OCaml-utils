@@ -79,6 +79,18 @@ let rec list_get_element l index = if index < 0 then failwith "Index out of boun
             |  x::xs  -> if index = 0 then x else list_get_element xs (index-1)
 
 
+(* map : ('a -> 'b) -> 'a list -> 'b list
+ *
+ * Applies f to each element in a given polymorphic list.
+ * Examples:  # map (fun x -> x+1) [1;2;3;4] = [2; 3; 4; 5]
+ *            # map string_of_int [11;12;13] = ["11"; "12"; "13"]
+ *)
+let rec map f l =
+  match l with []     -> []
+            |  x::xs  -> (f x) :: map f xs
+
+
+
 (* list_replace_element : 'a list -> 'a -> 'a -> 'a list
  *
  * Replaces all occurrences of element1 by element2 in a polymorphic list.
@@ -113,3 +125,69 @@ let rec fib x =
  *)
 let rec fac x =
   if x <= 1 then 1 else x * fac (x-1)
+
+
+
+(* -----
+ * Map functions (associative list)
+ * Stores key-value pairs as (k,v) tuples
+ * in a list. Uses option types
+ * ----- 
+ *)
+
+
+ (* is_empty : 'a list -> bool
+ *
+ * Returns True if the map is empty, False if not
+ *)
+let map_is_empty map = (map = []);;
+
+(* get : 'a -> ('a * 'b) list -> 'b option
+ *
+ * Returns the value of a given key in a map.
+ * Uses option type
+ *)
+let rec map_get key map = 
+  match map with
+      [] -> None
+    | (k,v)::xs -> if key = k then Some v else map_get key xs
+
+(* put : 'a -> 'b -> ('a * 'b) list -> ('a * 'b) list
+ *
+ * Inserts a key-value pair into the map.
+ * Overrides existing (k,v)-tuple if it exists
+ *)
+let map_put key value map =
+  if (List.find_opt (fun x -> let k,v = x in k = key) map) = None then (key,value)::map
+  else List.map (fun x -> let k,v = x in (if k = key then key,value else k,v)) map
+
+(* contains_key : 'a -> ('a * 'b) list -> bool
+ *
+ * Returns True if a given key exists in a map
+ *)
+let map_contains_key key map = (map_get key map <> None)
+
+(* remove : 'a -> ('a * 'b) list -> ('a * 'b) list
+ *
+ * Removes the key-value pair with given key
+ *)
+let rec map_remove key map =
+  match map with
+      []          -> []
+    | (k,v)::xs -> if key = k then map_remove key xs else (k,v)::(map_remove key xs)
+
+(* keys : ('a * 'b) list -> 'a list
+ *
+ * Returns x! (factorial of x)
+ * 0! = 1! and x! = x * (x-1)!
+ *)
+let map_keys map = List.map fst map
+
+
+(* values : ('a * 'b) list -> 'b list
+ *
+ * Returns x! (factorial of x)
+ * 0! = 1! and x! = x * (x-1)!
+ *)
+let map_values map = List.map snd map
+
