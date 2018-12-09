@@ -29,7 +29,9 @@ val list_contains : 'a list -> 'a -> bool = <fun>
 
 val list_get_element : 'a list -> int -> 'a = <fun>
 
-val map : ('a -> 'b) -> 'a list -> 'b list = <fun>
+val list_map :
+  (('a -> 'b) -> 'a list -> 'b list) -> ('a -> 'b) -> 'a list -> 'b list =
+  <fun>
 
 val list_replace_element : 'a list -> 'a -> 'a -> 'a list = <fun>
 
@@ -50,5 +52,6 @@ val map_remove : 'a -> ('a * 'b) list -> ('a * 'b) list = <fun>
 val map_keys : ('a * 'b) list -> 'a list = <fun>
 
 val map_values : ('a * 'b) list -> 'b list = <fun>
+
 
 ```
