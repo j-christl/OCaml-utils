@@ -194,7 +194,6 @@ let rec map_remove key map =
 let map_keys map =
   List.map fst map
 
-
 (* map_values : ('a * 'b) list -> 'b list
  *
  * Returns all values
@@ -202,4 +201,23 @@ let map_keys map =
  *)
 let map_values map =
   List.map snd map
+
+
+
+(* -----
+ * Binary tree functions
+ * ----- 
+ *)
+type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+
+(* val bintree_insert : 'a -> ('a -> 'a -> int) -> 'a bintree -> 'a bintree
+ *
+ * Inserts a given element into a binary tree.
+ * A compare function has to be provided (standard for int is Pervasives 'compare')
+ *)
+let rec bintree_insert (elem : 'a) (comp:('a -> 'a -> int)) t:'a bintree =
+match t with
+  | Empty       -> Node (elem,Empty,Empty)
+  | Node(e,l,r) -> if (comp elem e) < 0 then Node(e,(bintree_insert elem comp l), r)
+                    else Node(e,l,(bintree_insert elem comp r))
 
