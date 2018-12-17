@@ -221,3 +221,40 @@ match t with
   | Node(e,l,r) -> if (comp elem e) < 0 then Node(e,(bintree_insert elem comp l), r)
                     else Node(e,l,(bintree_insert elem comp r))
 
+(* *)
+(* TODO add more bintree functions *)
+(* *)
+
+(* -----
+ * Basic utility functions
+ * ----- 
+ *)
+
+(* val string_to_charlist : string -> char list 
+ *
+ * Splits a string into a char list
+ * Example: string_to_charlist "hello!" -> ['h'; 'e'; 'l'; 'l'; 'o'; '!']
+ *)
+let string_to_charlist str =
+  let rec impl i len =
+    if i = len then [] else (String.get str i)::(impl (i+1) len)
+  in impl 0 (String.length str)
+
+
+(* val is_balanced : string -> bool
+ *
+ * Checks if a String expression is balanced in terms of its brackets.
+ * (This was a exercise taken from TUM FPV WS17/18 endterm ex. 3)
+ * Examples:  is_balanced ")(" -> false
+ *            is_balanced "())" -> false
+ *            is_balanced "a(b)((c))" -> true
+ *)
+let is_balanced str =
+    let rec is_balanced_rec chars num_open num_closed =
+        match chars with
+            | []    ->  if num_open = num_closed then true else false
+            | c::xs ->  if c = '(' then is_balanced_rec xs (num_open+1) num_closed
+                        else if c = ')' then (if num_open <= num_closed then false else is_balanced_rec xs num_open (num_closed+1))
+                        else is_balanced_rec xs num_open num_closed
+    in is_balanced_rec (string_to_charlist str) 0 0
+
