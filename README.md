@@ -53,4 +53,8 @@ val map_values : ('a * 'b) list -> 'b list = <fun>
 
 val bintree_insert : 'a -> ('a -> 'a -> int) -> 'a bintree -> 'a bintree = <fun>
 
+val string_to_charlist : string -> char list = <fun>
+
+val is_balanced : string -> bool = <fun>
+
 ```
