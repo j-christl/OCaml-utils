@@ -209,21 +209,52 @@ let map_values map =
  * ----- 
  *)
 type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+type traverse_order = PREORDER | INORDER | POSTORDER
 
 (* val bintree_insert : 'a -> ('a -> 'a -> int) -> 'a bintree -> 'a bintree
  *
  * Inserts a given element into a binary tree.
  * A compare function has to be provided (standard for int is Pervasives 'compare')
  *)
-let rec bintree_insert (elem : 'a) (comp:('a -> 'a -> int)) t:'a bintree =
-match t with
-  | Empty       -> Node (elem,Empty,Empty)
-  | Node(e,l,r) -> if (comp elem e) < 0 then Node(e,(bintree_insert elem comp l), r)
-                    else Node(e,l,(bintree_insert elem comp r))
+let rec bintree_insert (elem : 'a) (comp:('a -> 'a -> int)) (t:'a bintree) =
+  match t with
+    | Empty       -> Node (elem,Empty,Empty)
+    | Node(e,l,r) -> if (comp elem e) < 0 then Node(e,(bintree_insert elem comp l), r)
+                      else Node(e,l,(bintree_insert elem comp r))
 
-(* *)
-(* TODO add more bintree functions *)
-(* *)
+
+(* val bintree_print : 'a bintree -> traverse_order -> ('a -> unit) -> unit
+ *
+ * Prints a given binary tree.
+ *
+ * Example usage:
+    let b : int bintree ref = ref (Node(2, Node(1,Empty,Empty), Node(3,Empty,Empty))) in
+    let () = (b := (bintree_insert 5 compare !b)) in
+    let () = (b := (bintree_insert (-1) compare !b)) in
+    let () = bintree_print !b INORDER (fun i -> (print_int i;print_string " ")) in
+    ()
+ * => Results in "-1 1 2 3 5" being printed to std output
+ *)
+let rec bintree_print (t:'a bintree) (o:traverse_order) (print_fun:('a->unit)) =
+  match t with
+    | Empty       -> ()
+    | Node(e,l,r) -> if o = PREORDER then (print_fun e;(bintree_print l o print_fun);(bintree_print r o print_fun))
+                     else if o = INORDER then ((bintree_print l o print_fun);print_fun e;(bintree_print r o print_fun))
+                     else if o = POSTORDER then ((bintree_print l o print_fun);(bintree_print r o print_fun);print_fun e)
+
+(* val bintree_contains : 'a -> ('a -> 'a -> int) -> 'a bintree -> bool
+ *
+ * Returns whether the binary tree contains a given element
+ *  (tail-recursive implementation)
+ *)
+let rec bintree_contains (elem : 'a) (comp:('a -> 'a -> int)) (t:'a bintree) =
+  match t with
+    | Empty       -> false
+    | Node(e,l,r) -> let cmp_result = comp elem e in
+                     if cmp_result = 0 then true                              (* target element = node element -> found element *)
+                     else if cmp_result < 0 then bintree_contains elem comp l (* target element < node element -> left subtree *)
+                     else bintree_contains elem comp r                        (* target element > node element -> right subtree *)
+
 
 (* -----
  * Basic utility functions
