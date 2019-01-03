@@ -19,46 +19,38 @@ $ ocaml
 ## Current functions
 
 ```ocaml
-val list_reverse : 'a list -> 'a list = <fun>
-
-val list_size : 'a list -> int = <fun>
-
-val list_index_of : 'a list -> 'a -> int = <fun>
-
-val list_contains : 'a list -> 'a -> bool = <fun>
-
-val list_get_element : 'a list -> int -> 'a = <fun>
-
-val list_map : ('a -> 'b) -> 'a list -> 'b list = <fun>
-
-val list_replace_element : 'a list -> 'a -> 'a -> 'a list = <fun>
-
-val fib : int -> int = <fun>
-
-val fac : int -> int = <fun>
-
-val map_is_empty : 'a list -> bool = <fun>
-
-val map_get : 'a -> ('a * 'b) list -> 'b option = <fun>
-
-val map_put : 'a -> 'b -> ('a * 'b) list -> ('a * 'b) list = <fun>
-
-val map_contains_key : 'a -> ('a * 'b) list -> bool = <fun>
-
-val map_remove : 'a -> ('a * 'b) list -> ('a * 'b) list = <fun>
-
-val map_keys : ('a * 'b) list -> 'a list = <fun>
-
-val map_values : ('a * 'b) list -> 'b list = <fun>
-
-val bintree_insert : 'a -> ('a -> 'a -> int) -> 'a bintree -> 'a bintree = <fun>
-
-val bintree_print : 'a bintree -> traverse_order -> ('a -> unit) -> unit = <fun>
-
-val bintree_contains : 'a -> ('a -> 'a -> int) -> 'a bintree -> bool = <fun>
-
-val string_to_charlist : string -> char list = <fun>
-
-val is_balanced : string -> bool = <fun>
-
+module YList :
+  sig
+    val list_reverse : 'a list -> 'a list
+    val list_size : 'a list -> int
+    val list_index_of : 'a list -> 'a -> int
+    val list_contains : 'a list -> 'a -> bool
+    val list_get_element : 'a list -> int -> 'a
+    val list_map : ('a -> 'b) -> 'a list -> 'b list
+    val list_replace_element : 'a list -> 'a -> 'a -> 'a list
+  end
+module YSequences : sig val fib : int -> int val fac : int -> int end
+module YMap :
+  sig
+    val map_is_empty : 'a list -> bool
+    val map_get : 'a -> ('a * 'b) list -> 'b option
+    val map_put : 'a -> 'b -> ('a * 'b) list -> ('a * 'b) list
+    val map_contains_key : 'a -> ('a * 'b) list -> bool
+    val map_remove : 'a -> ('a * 'b) list -> ('a * 'b) list
+    val map_keys : ('a * 'b) list -> 'a list
+    val map_values : ('a * 'b) list -> 'b list
+  end
+module YBintree :
+  sig
+    type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
+    type traverse_order = PREORDER | INORDER | POSTORDER
+    val bintree_insert : 'a -> ('a -> 'a -> int) -> 'a bintree -> 'a bintree
+    val bintree_print : 'a bintree -> traverse_order -> ('a -> unit) -> unit
+    val bintree_contains : 'a -> ('a -> 'a -> int) -> 'a bintree -> bool
+  end
+module YBasic :
+  sig
+    val string_to_charlist : string -> char list
+    val is_balanced : string -> bool
+  end
 ```

@@ -9,10 +9,10 @@
 
 
 (* -----
- * List functions
+ * List Module
  * ----- 
  *)
- 
+ module YList = struct
 
 (* list_reverse : list -> list
  *
@@ -109,12 +109,15 @@ let rec list_replace_element l element1 element2 =
     | x::xs  -> (if x = element1 then element2 else x)::list_replace_element xs element1 element2
 
 
+(* End of List module*)
+end
+
 
 (* -----
- * Sequence functions
+ * Sequences Module
  * ----- 
  *)
-
+module YSequences = struct
 
 (* fib : int -> int
  *
@@ -134,14 +137,17 @@ let rec fac x =
   if x <= 1 then 1 else x * fac (x-1)
 
 
+(* End of Sequences module*)
+end
+
 
 (* -----
- * Map functions (associative list)
+ * Map Module (associative list)
  * Stores key-value pairs as (k,v) tuples
  * in a list. Uses option types
  * ----- 
  *)
-
+module YMap = struct
 
  (* map_is_empty : 'a list -> bool
  *
@@ -203,11 +209,16 @@ let map_values map =
   List.map snd map
 
 
+(* End of Map module*)
+end
+
 
 (* -----
- * Binary tree functions
+ * Binary tree Module
  * ----- 
  *)
+module YBintree = struct
+
 type 'a bintree = Empty | Node of 'a * 'a bintree * 'a bintree
 type traverse_order = PREORDER | INORDER | POSTORDER
 
@@ -256,10 +267,16 @@ let rec bintree_contains (elem : 'a) (comp:('a -> 'a -> int)) (t:'a bintree) =
                      else bintree_contains elem comp r                        (* target element > node element -> right subtree *)
 
 
+(* End of Binary Tree module*)
+end
+
+
 (* -----
  * Basic utility functions
  * ----- 
  *)
+
+ module YBasic = struct
 
 (* val string_to_charlist : string -> char list 
  *
@@ -289,3 +306,5 @@ let is_balanced str =
                         else is_balanced_rec xs num_open num_closed
     in is_balanced_rec (string_to_charlist str) 0 0
 
+(* End of Basic module*)
+end
