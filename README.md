@@ -29,7 +29,11 @@ module YList :
     val list_map : ('a -> 'b) -> 'a list -> 'b list
     val list_replace_element : 'a list -> 'a -> 'a -> 'a list
   end
-module YSequences : sig val fib : int -> int val fac : int -> int end
+module YSequences :
+  sig
+    val fib : int -> int
+    val fac : int -> int
+  end
 module YMap :
   sig
     val map_is_empty : 'a list -> bool
