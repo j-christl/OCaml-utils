@@ -116,7 +116,7 @@ let rec list_replace_element l element1 element2 =
  *            # list_set_at_index [0;1;2;3;4] 0 10 = [10; 1; 2; 3; 4]
  * Returns l if the index is out of bounds
 *)
-let list_set_at_index l index elem =
+let rec list_set_at_index l index elem =
   match l with
     | []    -> []
     | x::xs -> if index = 0 then elem::(list_set_at_index xs (index-1) elem) else x::(list_set_at_index xs (index-1) elem)
