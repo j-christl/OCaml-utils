@@ -28,6 +28,7 @@ module YList :
     val list_get_element : 'a list -> int -> 'a
     val list_map : ('a -> 'b) -> 'a list -> 'b list
     val list_replace_element : 'a list -> 'a -> 'a -> 'a list
+    val list_set_at_index : 'a list -> int -> 'a -> 'a list = <fun>
   end
 module YSequences :
   sig

@@ -109,6 +109,18 @@ let rec list_replace_element l element1 element2 =
     | x::xs  -> (if x = element1 then element2 else x)::list_replace_element xs element1 element2
 
 
+(* list_set_at_index : 'a list -> int -> 'a -> 'a list
+ *
+ * Sets the list element with a given index to a given value (named element)
+ * Examples:  # list_set_at_index [0;1;2;3;4] 4 99 = [0; 1; 2; 3; 99]
+ *            # list_set_at_index [0;1;2;3;4] 0 10 = [10; 1; 2; 3; 4]
+ * Returns l if the index is out of bounds
+*)
+let list_set_at_index l index elem =
+  match l with
+    | []    -> []
+    | x::xs -> if index = 0 then elem::(list_set_at_index xs (index-1) elem) else x::(list_set_at_index xs (index-1) elem)
+
 (* End of List module*)
 end
 
